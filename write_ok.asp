@@ -1,9 +1,9 @@
 
 <%
-response.codepage = 949
-response.charset = "EUC-KR"
-' response.CodePage = 65001
-' response.charset = "UTF-8"
+' response.codepage = 949
+' response.charset = "EUC-KR"
+response.CodePage = 65001
+response.charset = "UTF-8"
 ' request 개체를 통해 넘어온 값을 변수에 저장
 name = request("name")
 email = request("email")
@@ -22,10 +22,10 @@ set db = Server.CreateObject("ADODB.Connection")
 db.Open("DSN=localsqldb;UID=sa;PWD=1234;")
 
 ' 가져오려고 하는 데이터 쿼리문
-sql = "select MAX(num) from MyBoard"
+sql = "SELECT MAX(num) FROM MyBoard"
 ' 레코드셋 개체의 인스턴스 생성
 set rs = Server.CreateObject("ADODB.Recordset")
-' 지정한 쿼리로 DB연결에서 레코드셋에 데이터 저장
+' 지정한 쿼리로 DB연결해서 레코드셋에 데이터 저장
 rs.Open sql, db
 
 if isNull(rs(0)) then
