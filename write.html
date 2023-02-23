@@ -23,7 +23,7 @@
             }
     
             // 내용
-            if (document.myform.content.value == "") {
+            if (document.myform.board_content.value == "") {
                 alert("내용이 하나도 없네요.. 내용 좀 적어주세요..")
                 return false
             }
@@ -41,7 +41,7 @@
         <table cellpadding="0" cellspacing="0" style="border:0; width: 700;">
             <tr>
                 <td>
-                    <form name="myform" method="POST" action="write_ok.asp">
+                    <form name="myform" method="post" action="./write_ok.asp">
                         <div style="text-align: center;">
                             <table cellpadding="0" cellspacing="0" style="border: 1px dashed rgb(192, 192, 192); width: 540;">
                                 <tr>
@@ -105,7 +105,7 @@
                                         </strong>
                                     </td>
                                     <td class="write-td-right">
-                                        <textarea wrap="hard" rows="10" name="content" cols="55" style="border: 1 dashed;"></textarea>
+                                        <textarea wrap="hard" rows="10" name="board_content" cols="55" style="border: 1 dashed;"></textarea>
                                     </td>
                                 </tr>
                                 <tr>
