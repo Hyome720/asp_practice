@@ -1,6 +1,9 @@
-<%@Language=VBScript CodePage=65001%>
 
 <%
+response.codepage = 949
+response.charset = "EUC-KR"
+' response.CodePage = 65001
+' response.charset = "UTF-8"
 ' request 개체를 통해 넘어온 값을 변수에 저장
 name = request("name")
 email = request("email")
@@ -12,8 +15,12 @@ board_content = request("board_content")
 ' connection 인스턴스 생성
 set db = Server.CreateObject("ADODB.Connection")
 ' DB 열기
-' db.Open("Provider=SQLOLEDB;Data Source=localhost;Initial Catalog=MyDB;User ID=DESKTOP-NGB5FRD;Password=1234;")
-db.Open("Driver={SQL Server};Server=192.168.0.60;Database=MyDB;Uid=sa;Pwd=1234;")
+'db.Open("Provider=SQLOLEDB;Data Source=(local)\SQLEXPRESS;Initial Catalog=MyDB;Integrated Security=true;")
+'db.Open("Driver={SQL Server};Server=(LocalDb)\MSSQLLocalDB;Database=MyDB;Integrated Security=true;")
+'db.Open("Driver={SQL Server};(LocalDb)\MSSQLLocalDB;Initial Catalog=MyDB;Integrated Security=true")
+'db.Open("Driver={SQL Server};Server=localsqldb;Initial Catalog=MyDB;Integrated Security=true")
+db.Open("DSN=localsqldb;UID=sa;PWD=1234;")
+
 ' 가져오려고 하는 데이터 쿼리문
 sql = "select MAX(num) from MyBoard"
 ' 레코드셋 개체의 인스턴스 생성
@@ -28,16 +35,15 @@ else
 end if
 
 sql = "insert into MyBoard (name, email, homepage, title, board_content, num,"
-sql = sql & "readnum, writeday, pwd) values"
+sql = sql & "readnum, writeday, pwd) values "
 sql = sql & "('" & name & "'"
 sql = sql & ",'" & email & "'"
 sql = sql & ",'" & homepage & "'"
-
 sql = sql & ",'" & title & "'"
 sql = sql & ",'" & board_content & "'"
-sql = sql & ",'" & number
-sql = sql & ",0,'" & now() & "',"
-sql = sql & "'" & pwd & "')"
+sql = sql & "," & number
+sql = sql & ",0,'" & date() & "'"
+sql = sql & ",'" & pwd & "')"
 
 ' db에 insert 쿼리를 보내 데이터 추가
 db.execute sql
