@@ -10,13 +10,14 @@ pwd = request("pwd")
 board_content = request("board_content")
 
 ' connection 인스턴스 생성
-Set db = Server.CreateObject("ADODB.Connection")
+set db = Server.CreateObject("ADODB.Connection")
 ' DB 열기
-db.Open("DESKTOP-NGB5FRD\SQLEXPRESS")
+' db.Open("Provider=SQLOLEDB;Data Source=localhost;Initial Catalog=MyDB;User ID=DESKTOP-NGB5FRD;Password=1234;")
+db.Open("Driver={SQL Server};Server=192.168.0.60;Database=MyDB;Uid=sa;Pwd=1234;")
 ' 가져오려고 하는 데이터 쿼리문
-sql = "Select MAX(num) for MyBoard"
+sql = "select MAX(num) from MyBoard"
 ' 레코드셋 개체의 인스턴스 생성
-Set rs = Server.CreateObject("ADODB.Recordset")
+set rs = Server.CreateObject("ADODB.Recordset")
 ' 지정한 쿼리로 DB연결에서 레코드셋에 데이터 저장
 rs.Open sql, db
 
@@ -31,11 +32,12 @@ sql = sql & "readnum, writeday, pwd) values"
 sql = sql & "('" & name & "'"
 sql = sql & ",'" & email & "'"
 sql = sql & ",'" & homepage & "'"
+
 sql = sql & ",'" & title & "'"
 sql = sql & ",'" & board_content & "'"
 sql = sql & ",'" & number
-sql = sql & ",0,'" & now() & "'"
-sql = sql & ",'" & pwd & ")"
+sql = sql & ",0,'" & now() & "',"
+sql = sql & "'" & pwd & "')"
 
 ' db에 insert 쿼리를 보내 데이터 추가
 db.execute sql
