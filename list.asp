@@ -27,6 +27,12 @@ rs.Open sql, db, 1
             <strong>
                 MyBoard List
             </strong>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            <a href="write.html">
+                <img src="https://img.freepik.com/free-vector/illustration-of-document-icon_53876-37007.jpg?w=1380&t=st=1677052922~exp=1677053522~hmac=5f8645b7a869e81c30d37d18ee7ea86d6ac8fbed6e250759cf90abe5ae812e86" width="40px">
+            </a>
         </p>
     </div>
     <% 
@@ -35,7 +41,7 @@ rs.Open sql, db, 1
     <p>데이터가 없습니다ㅏㅏㅏㅏㅏㅏㅏ.</p>
     <% else %>
         <div style="text-align: center;">
-            <table>
+            <table class="list-table">
                 <tr>
                     <td class="list-td-01">
                         번호
@@ -55,10 +61,19 @@ rs.Open sql, db, 1
                 </tr>
                 <% Do Until rs.EOF %>
                 <tr>
-                    <td class="list-td-01" style="color: black !important; background-color: #fff !important;"><%=rs("num")%></td>
-                    <td class="list-td-02" style="color: black !important; background-color: #fff !important;"><%=rs("name")%></td>
+                    <td class="list-td-01" style="color: black !important; background-color: #fff !important;">
+                        <%=rs("num")%></td>
+                    <td class="list-td-02" style="color: black !important; background-color: #fff !important;">
+                        <a href="mailto:<%=rs("email")%>">
+                            <%=rs("name")%>
+                        </a>
+                    </td>
                     <td class="list-td-02" style="color: black !important; background-color: #fff !important;"><%=rs("writeday")%></td>
-                    <td class="list-td-04" style="color: black !important; background-color: #fff !important;"><%=rs("title")%></td>
+                    <td class="list-td-04" style="color: black !important; background-color: #fff !important;">
+                        <a href="content.asp?idx=<%=rs("board_idx")%>">
+                            <%=rs("title")%>
+                        </a>
+                    </td>
                     <td class="list-td-01" style="color: black !important; background-color: #fff !important;"><%=rs("readnum")%></td>
                 </tr>
                 <%

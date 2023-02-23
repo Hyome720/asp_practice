@@ -1,13 +1,21 @@
-body:link {
+.list-table {
+    margin: auto;
+}
+
+a {
+    text-decoration: none;
+}
+a:link {
     color: #000080;
 }
 
-body:visited {
+a:visited {
     color: #7D7C4F;
 }
 
-body:hover {
+a:hover {
     color: #CBCAAD;
+    text-decoration: underline;
 }
 
 .list-td-01 {
