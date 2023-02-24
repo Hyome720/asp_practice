@@ -76,6 +76,7 @@ rs.Open sql, db
                                         </strong>
                                     </td>
                                     <td class="write-td-right">
+                                        <input type="hidden" name="board_idx" value="<%=rs("board_idx")%>">
                                         <input type="text" name="name" size="20" style="border: 1 dashed;" value="<%=rs("name")%>">
                                     </td>
                                 </tr>
