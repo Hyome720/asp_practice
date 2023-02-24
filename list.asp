@@ -1,25 +1,24 @@
 <% 
-response.CodePage = 65001
-response.charset = "UTF-8"
+response.codepage = 949
+response.charset = "EUC-KR"
 %>
 <%
-' connection ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
+' connection ÀÎ½ºÅÏ½º »ý¼º
 Set db = Server.CreateObject("ADODB.Connection")
-' DB ì—´ê¸°
+' DB ¿­±â
 db.Open("DSN=localsqldb;UID=sa;PWD=1234;")
-' ëª¨ë“  ë°ì´í„° ê°€ì ¸ì˜¤ê¸°
+' ¸ðµç µ¥ÀÌÅÍ °¡Á®¿À±â
 sql = "SELECT * from MyBoard ORDER BY num DESC"
-' ë ˆì½”ë“œì…‹ ê°œì²´ì˜ ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
+' ·¹ÄÚµå¼Â °³Ã¼ÀÇ ÀÎ½ºÅÏ½º »ý¼º
 Set rs = Server.CreateObject("ADODB.Recordset")
-' ì§€ì • ì¿¼ë¦¬ë¡œ DBì—°ê²°í•˜ê³  ë ˆì½”ë“œì…‹ì— ì €ìž¥
+' ÁöÁ¤ Äõ¸®·Î DB¿¬°áÇÏ°í ·¹ÄÚµå¼Â¿¡ ÀúÀå
 rs.Open sql, db, 1
 %>
 <head>
-    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/list.css">
-    <title>ê²Œì‹œíŒ</title>
+    <title>°Ô½ÃÆÇ</title>
 </head>
 <body>
     <div style="text-align: center;">
@@ -38,25 +37,25 @@ rs.Open sql, db, 1
     <% 
     if rs.BOF or rs.EOF then
     %>
-    <p>ë°ì´í„°ê°€ ì—†ìŠµë‹ˆë‹¤ã…ã…ã…ã…ã…ã…ã….</p>
+    <p>µ¥ÀÌÅÍ°¡ ¾ø½À´Ï´Ù¤¿¤¿¤¿¤¿¤¿¤¿¤¿.</p>
     <% else %>
         <div style="text-align: center;">
             <table class="list-table">
                 <tr>
                     <td class="list-td-01">
-                        ë²ˆí˜¸
+                        ¹øÈ£
                     </td>
                     <td class="list-td-02">
-                        ê¸€ì“´ì´
+                        ±Û¾´ÀÌ
                     </td>
                     <td class="list-td-02">
-                        ë‚ ì§œ
+                        ³¯Â¥
                     </td>
                     <td class="list-td-04">
-                        ì œëª©
+                        Á¦¸ñ
                     </td>
                     <td class="list-td-01">
-                        ì¡°íšŒìˆ˜
+                        Á¶È¸¼ö
                     </td>
                 </tr>
                 <% Do Until rs.EOF %>
@@ -77,8 +76,8 @@ rs.Open sql, db, 1
                     <td class="list-td-01" style="color: black !important; background-color: #fff !important;"><%=rs("readnum")%></td>
                 </tr>
                 <%
-                rs.MoveNext ' ë‹¤ìŒ ë ˆì½”ë“œë¡œ ì´ë™
-                loop ' ë ˆì½”ë“œ ëê¹Œì§€ Loop ëŒê¸°
+                rs.MoveNext ' ´ÙÀ½ ·¹ÄÚµå·Î ÀÌµ¿
+                loop ' ·¹ÄÚµå ³¡±îÁö Loop µ¹±â
                 %>
                 <% end if %>
             </table>
@@ -87,7 +86,7 @@ rs.Open sql, db, 1
 </html>
 
 <%
-' ì‚¬ìš©í•œ ê°œì²´ë“¤ ëª¨ë‘ ë°˜ë‚© - ë°ì´í„° ì ˆì•½
+' »ç¿ëÇÑ °³Ã¼µé ¸ðµÎ ¹Ý³³ - µ¥ÀÌÅÍ Àý¾à
 rs.Close
 db.Close
 Set rs= Nothing

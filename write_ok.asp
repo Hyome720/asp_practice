@@ -1,10 +1,10 @@
 
 <%
-' response.codepage = 949
-' response.charset = "EUC-KR"
-response.CodePage = 65001
-response.charset = "UTF-8"
-' request ê°œì²´ë¥¼ í†µí•´ ë„˜ì–´ì˜¨ ê°’ì„ ë³€ìˆ˜ì— ì €ì¥
+response.codepage = 949
+response.charset = "EUC-KR"
+' response.CodePage = 65001
+' response.charset = "UTF-8"
+' request °³Ã¼¸¦ ÅëÇØ ³Ñ¾î¿Â °ªÀ» º¯¼ö¿¡ ÀúÀå
 name = request("name")
 email = request("email")
 homepage = request("homepage")
@@ -12,20 +12,20 @@ title = request("title")
 pwd = request("pwd")
 board_content = request("board_content")
 
-' connection ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
+' connection ÀÎ½ºÅÏ½º »ı¼º
 set db = Server.CreateObject("ADODB.Connection")
-' DB ì—´ê¸°
+' DB ¿­±â
 'db.Open("Provider=SQLOLEDB;Data Source=(local)\SQLEXPRESS;Initial Catalog=MyDB;Integrated Security=true;")
 'db.Open("Driver={SQL Server};Server=(LocalDb)\MSSQLLocalDB;Database=MyDB;Integrated Security=true;")
 'db.Open("Driver={SQL Server};(LocalDb)\MSSQLLocalDB;Initial Catalog=MyDB;Integrated Security=true")
 'db.Open("Driver={SQL Server};Server=localsqldb;Initial Catalog=MyDB;Integrated Security=true")
 db.Open("DSN=localsqldb;UID=sa;PWD=1234;")
 
-' ê°€ì ¸ì˜¤ë ¤ê³  í•˜ëŠ” ë°ì´í„° ì¿¼ë¦¬ë¬¸
+' °¡Á®¿À·Á°í ÇÏ´Â µ¥ÀÌÅÍ Äõ¸®¹®
 sql = "SELECT MAX(num) FROM MyBoard"
-' ë ˆì½”ë“œì…‹ ê°œì²´ì˜ ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
+' ·¹ÄÚµå¼Â °³Ã¼ÀÇ ÀÎ½ºÅÏ½º »ı¼º
 set rs = Server.CreateObject("ADODB.Recordset")
-' ì§€ì •í•œ ì¿¼ë¦¬ë¡œ DBì—°ê²°í•´ì„œ ë ˆì½”ë“œì…‹ì— ë°ì´í„° ì €ì¥
+' ÁöÁ¤ÇÑ Äõ¸®·Î DB¿¬°áÇØ¼­ ·¹ÄÚµå¼Â¿¡ µ¥ÀÌÅÍ ÀúÀå
 rs.Open sql, db
 
 if isNull(rs(0)) then
@@ -45,7 +45,7 @@ sql = sql & "," & number
 sql = sql & ",0,'" & date() & "'"
 sql = sql & ",'" & pwd & "')"
 
-' dbì— insert ì¿¼ë¦¬ë¥¼ ë³´ë‚´ ë°ì´í„° ì¶”ê°€
+' db¿¡ insert Äõ¸®¸¦ º¸³» µ¥ÀÌÅÍ Ãß°¡
 db.execute sql
 
 rs.close
@@ -56,11 +56,11 @@ set db = nothing
 response.redirect "list.asp"
 
 Response.Write "your name is " & name & "<br>"
-Response.Write "ë©”ì¼ ì£¼ì†ŒëŠ” " & email & "<br>"
-Response.Write "í™ˆí˜ì´ì§€ ì£¼ì†ŒëŠ” " & homepage & "<br>"
-Response.Write "ê¸€ ì œëª©ì€ " & title & "<br>"
-Response.Write "ê¸€ ë‚´ìš©ì€ " & board_content & "<br>"
-Response.Write "ë¹„ë°€ë²ˆí˜¸ëŠ” " & pwd & "<br>" 
+Response.Write "¸ŞÀÏ ÁÖ¼Ò´Â " & email & "<br>"
+Response.Write "È¨ÆäÀÌÁö ÁÖ¼Ò´Â " & homepage & "<br>"
+Response.Write "±Û Á¦¸ñÀº " & title & "<br>"
+Response.Write "±Û ³»¿ëÀº " & board_content & "<br>"
+Response.Write "ºñ¹Ğ¹øÈ£´Â " & pwd & "<br>" 
 %>
 <html>
 <body>
