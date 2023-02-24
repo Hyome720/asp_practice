@@ -12,8 +12,6 @@ Set rs = Server.CreateObject("ADODB.Recordset")
 sql = "SELECT * FROM MyBoard WHERE board_idx=" & request("idx")
 
 rs.Open sql, db
-
-content = replace(res("content"), chr(13) & chr(10), "<br>")
 %>
 
 <!DOCTYPE html>
