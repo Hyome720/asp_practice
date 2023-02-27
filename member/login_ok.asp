@@ -33,6 +33,6 @@ if (rs.EOF or rs.BOF) then
         session("id") = rs("mem_id")
         session("name") = rs("mem_name")
         session("email") = rs("mem_email")
-        Response.Redirect("main.asp")
+        Response.Redirect("../default.asp")
     end if
 end if %>

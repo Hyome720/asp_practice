@@ -24,5 +24,5 @@ db.execute(sql)
 %>
 <script>
 alert("정보 수정이 완료되었습니다.")
-location.href="mem_main.asp"
+location.href="../default.asp"
 </script>
