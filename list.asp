@@ -3,6 +3,16 @@ response.codepage = 949
 response.charset = "EUC-KR"
 %>
 <%
+' 페이지 지정
+' default 페이지를 첫 페이지로 지정
+' 넘어오는 페이지가 있다면 그 번호로 세팅
+' 이 번호가 Absolutepage로 지정
+if request("page") = "" then
+    page = 1
+else
+    page = request("page")
+end if
+
 ' connection 인스턴스 생성
 Set db = Server.CreateObject("ADODB.Connection")
 ' DB 열기
@@ -11,6 +21,8 @@ db.Open("DSN=localsqldb;UID=sa;PWD=1234;")
 sql = "SELECT * from MyBoard ORDER BY num DESC"
 ' 레코드셋 개체의 인스턴스 생성
 Set rs = Server.CreateObject("ADODB.Recordset")
+' 페이지 사이즈 지정. 레코드셋 오픈 전에 지정
+rs.pageSize = 3
 ' 지정 쿼리로 DB연결하고 레코드셋에 저장
 rs.Open sql, db, 1
 %>
@@ -22,6 +34,25 @@ rs.Open sql, db, 1
 </head>
 <body>
     <div style="text-align: center;">
+        <div>
+            <form method="post" action="search_result.asp">
+                <table>
+                    <tr>
+                        <td>
+                            <span>검색</span>
+                        </td>
+                        <select name="search">
+                            <option value="title">제목</option>
+                            <option value="name">글쓴이</option>
+                            <option value="content">내용</option>
+                        </select>
+                        <input type="text" name="searchString">
+                        <input type="submit" value="검색">
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <hr>
         <p style="color: #004080">
             <strong>
                 MyBoard List
@@ -31,6 +62,7 @@ rs.Open sql, db, 1
             &nbsp;
             <a href="write.html">
                 <img src="https://img.freepik.com/free-vector/illustration-of-document-icon_53876-37007.jpg?w=1380&t=st=1677052922~exp=1677053522~hmac=5f8645b7a869e81c30d37d18ee7ea86d6ac8fbed6e250759cf90abe5ae812e86" width="40px">
+                글 작성하기
             </a>
         </p>
     </div>
@@ -38,7 +70,11 @@ rs.Open sql, db, 1
     if rs.BOF or rs.EOF then
     %>
     <p>데이터가 없습니다ㅏㅏㅏㅏㅏㅏㅏ.</p>
-    <% else %>
+    <% else 
+        ' 총 페이지수 변수에 할당
+        totalPage = rs.pageCount
+        rs.absolutePage = page
+    %>
         <div style="text-align: center;">
             <table class="list-table">
                 <tr>
@@ -58,7 +94,8 @@ rs.Open sql, db, 1
                         조회수
                     </td>
                 </tr>
-                <% Do Until rs.EOF %>
+                <% i = 1
+                Do Until rs.EOF or i > rs.pageSize %>
                 <tr>
                     <td class="list-td-01" style="color: black !important; background-color: #fff !important;">
                         <%=rs("num")%></td>
@@ -76,11 +113,23 @@ rs.Open sql, db, 1
                     <td class="list-td-01" style="color: black !important; background-color: #fff !important;"><%=rs("readnum")%></td>
                 </tr>
                 <%
-                rs.MoveNext ' 다음 레코드로 이동
-                loop ' 레코드 끝까지 Loop 돌기
+                ' 다음 레코드로 이동
+                rs.MoveNext 
+                i = i + 1
+                ' 레코드 끝까지 Loop 돌기
+                loop 
                 %>
                 <% end if %>
             </table>
+            <hr>
+            <% if page <> 1 then %>
+            &lt; <a href="list.asp?page=<%=page - 1%>">이전 페이지</a> &gt;
+            <% end if %>
+            <% if Cint(page) <> Cint(totalPage) then %>
+            &lt; <a href="list.asp?page=<%=page + 1%>">다음 페이지</a> &gt;
+            <% end if %>
+            <br>
+            <%=page%> 페이지 / <%=totalPage%> 페이지
         </div>
 </body>
 </html>

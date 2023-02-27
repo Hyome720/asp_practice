@@ -12,6 +12,16 @@ title = request("title")
 pwd = request("pwd")
 board_content = request("board_content")
 
+title = replace(title, "'", "'")
+title = replace(title, "&", "&amp;")
+title = replace(title, "<", "&lt;")
+title = replace(title, ">", "&gt;")
+
+board_content = replace(board_content, "'", "'")
+board_content = replace(board_content, "&", "&amp;")
+board_content = replace(board_content, "<", "&lt;")
+board_content = replace(board_content, ">", "&gt;")
+
 ' connection 인스턴스 생성
 set db = Server.CreateObject("ADODB.Connection")
 ' DB 열기
