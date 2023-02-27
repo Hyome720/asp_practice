@@ -13,6 +13,16 @@ pwd = request("pwd")
 board_content = request("board_content")
 board_idx = request("board_idx")
 
+title = replace(title, "'", "'")
+title = replace(title, "&", "&amp;")
+title = replace(title, "<", "&lt;")
+title = replace(title, ">", "&gt;")
+
+board_content = replace(board_content, "'", "'")
+board_content = replace(board_content, "&", "&amp;")
+board_content = replace(board_content, "<", "&lt;")
+board_content = replace(board_content, ">", "&gt;")
+
 ' connection 인스턴스 생성
 Set db = Server.CreateObject("ADODB.Connection")
 ' DB 열기
@@ -24,7 +34,7 @@ Set rs = db.execute(sql)
 
 ' 비밀번호 비교
 If Request("pwd") = rs("pwd") Then
-    sql = "UPDATE MyBoard SET name = '" & name & ""
+    sql = "UPDATE MyBoard SET name = '" & name & "'"
     sql = sql & ", title = '" & title & "'"
     sql = sql & ", email = '" & email & "'"
     sql = sql & ", board_content = '" & board_content & "'"
