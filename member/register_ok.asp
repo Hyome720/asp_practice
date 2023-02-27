@@ -35,6 +35,6 @@ else
 %>
     <script>
         alert('회원가입을 축하드립니다. 로그인해주세요')
-        location.href='login_form.asp?NewMember=<%=id%>'
+        location.href='login.asp?NewMember=<%=mem_id%>'
     </script>
 <% end if %>
