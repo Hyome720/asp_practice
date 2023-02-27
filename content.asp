@@ -93,6 +93,9 @@ rs.Open sql, db
                 삭제
             </p>
         </a>
+        <% if session("id") = "admin" then%>
+        <p>현재글의 비밀번호 : <%=rs("pwd")%></p>
+        <% end if %>
     </div>
 </body>
 </html>
