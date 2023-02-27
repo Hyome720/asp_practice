@@ -9,7 +9,7 @@
     <h2>나의 사이트</h2>
     <ul>
         <li>사이트 소개</li>
-        <li>게시판</li>
+        <li><a href="board/board.asp">게시판</a></li>
         <li>자료실</li>
 
         <% if session("id") = "" then %>
