@@ -8,7 +8,7 @@ Set db = Server.CreateObject("ADODB.Connection")
 db.Open("DSN=localsqldb;UID=sa;PWD=1234;")
 
 Set rs = Server.CreateObject("ADODB.Recordset")
-sql = "SELECT mem_id, mem_name, mem_pwd, mem_email FROM MemberList"
+sql = "SELECT mem_idx, mem_id, mem_name, mem_pwd, mem_email FROM MemberList"
 sql = sql & " WHERE mem_id = '" & request("mem_id") & "'"
 
 rs.Open sql, db
