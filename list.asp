@@ -18,7 +18,7 @@ Set db = Server.CreateObject("ADODB.Connection")
 ' DB 열기
 db.Open("DSN=localsqldb;UID=sa;PWD=1234;")
 ' 모든 데이터 가져오기
-sql = "SELECT * from MyBoard ORDER BY num DESC"
+sql = "SELECT * from " & session("table") & " ORDER BY num DESC"
 ' 레코드셋 개체의 인스턴스 생성
 Set rs = Server.CreateObject("ADODB.Recordset")
 ' 페이지 사이즈 지정. 레코드셋 오픈 전에 지정
@@ -55,7 +55,7 @@ rs.Open sql, db, 1
         <hr>
         <p style="color: #004080">
             <strong>
-                MyBoard List
+                <%=session("table")%> List
             </strong>
             &nbsp;
             &nbsp;

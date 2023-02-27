@@ -32,7 +32,7 @@ set db = Server.CreateObject("ADODB.Connection")
 db.Open("DSN=localsqldb;UID=sa;PWD=1234;")
 
 ' 가져오려고 하는 데이터 쿼리문
-sql = "SELECT MAX(num) FROM MyBoard"
+sql = "SELECT MAX(num) FROM  " & session("table")
 ' 레코드셋 개체의 인스턴스 생성
 set rs = Server.CreateObject("ADODB.Recordset")
 ' 지정한 쿼리로 DB연결해서 레코드셋에 데이터 저장
@@ -44,7 +44,7 @@ else
     number = rs(0) + 1
 end if
 
-sql = "insert into MyBoard (name, email, homepage, title, board_content, num,"
+sql = "insert into " & session("table") & " (name, email, homepage, title, board_content, num,"
 sql = sql & "readnum, writeday, pwd) values "
 sql = sql & "('" & name & "'"
 sql = sql & ",'" & email & "'"
